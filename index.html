@@ -9,21 +9,29 @@
     <title>Password Generator</title>
   </head>
   <body>
-    <h1>Password Generator</h1>
+    <div class="alertContainer hide">
+      <h1 id="message"></h1>
+      <button id="close" onclick="closeAlert()">
+        Close
+      </button>
+    </div>
 
-    <textarea
-      readonly
-      placeholder="Random Password"
-      id="password"
-    ></textarea>
+    <div class="container">
+      <h1>Password Generator</h1>
+      <textarea
+        readonly
+        placeholder="Random Password"
+        id="password"
+      ></textarea>
 
-    <button id="generate" class="button">
-      Generate Password
-    </button>
+      <button id="generate" onclick="generatePassword()">
+        Generate Password
+      </button>
 
-    <button id="copy" class="button">
-      Copy to Clipboard
-    </button>
+      <button id="copy" onclick="copyPassword()">
+        Copy to Clipboard
+      </button>
+    </div>
 
     <!-- Optinal JS -->
     <script type="text/javascript" src="./js/script.js"></script>

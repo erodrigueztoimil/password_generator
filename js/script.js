@@ -9,25 +9,56 @@ We can choose between lenght, and character type. Using those criteria, we need 
 
 */
 
-var generateButton = document.querySelector('#generate');
-var copyToClipboard = document.querySelector('#copy');
 
-var passwordContainer = document.querySelector('#password');
+// password container
+var passwordContainer = document.getElementById('password');
 
+// generates a unique password
 function generatePassword() {
-  var password = 'newpassword2000';
+  var values = ['newpassword2000', 'newpassword2024', 'newpassword6756'];
+  var index = Math.floor(Math.random()*values.length);
+  var password = values[index];
 
   passwordContainer.value = password;
 }
 
+
+// copy password handler
 function copyPassword() {
   if (passwordContainer.value) {
+    // copy to clipboard
     passwordContainer.select();
     document.execCommand('copy');
 
-    alert('copied password '+passwordContainer.value);
+    // sets message
+    showAlert('Password copied.');
+  }
+
+  else {
+    // sets message
+    showAlert('No password generated.');
   }
 }
 
-generateButton.addEventListener('click', generatePassword);
-copyToClipboard.addEventListener('click', copyPassword)
+
+// alert handler
+var alertContainer = document.querySelector('.alertContainer');
+
+// handle when to show the alert
+function showAlert(text) {
+  alertContainer.classList.remove("hide");
+
+  handleMessage(text);
+}
+
+// handle the alert message
+function handleMessage(text) {
+  var messageElement = document.getElementById('message');
+
+  messageElement.innerText = text;
+}
+
+// when close button is clicked close the alert
+function closeAlert() {
+  alertContainer.classList.add("hide");
+}
