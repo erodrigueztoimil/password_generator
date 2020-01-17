@@ -28,6 +28,18 @@
   color: #000;
 }
 
+.options {
+  padding-bottom: 25px;
+}
+
+#passwordLength {
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  font-size: 14px;
+  width: 100px;
+}
+
 .container {
   width: 50%;
   text-align: center;

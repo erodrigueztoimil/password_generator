@@ -18,6 +18,27 @@
 
     <div class="container">
       <h1>Password Generator</h1>
+      <div class="options">
+        <label>Password Length 8-128</label>
+        <input id="passwordLength" type="number" name="passwordLength" value="8">
+
+        <input class="checkbox" id="specialCharacter" type="checkbox" name="specialCharacter" value="">
+          Special Characters
+        </input>
+
+        <input class="checkbox" id="numericCharacter" type="checkbox" name="numericCharacter" value="">
+          Numeric Characters
+        </input>
+
+        <input class="checkbox" id="lowercaseCharacter" type="checkbox" name="lowercaseCharacter" value="">
+          Lowercase Characters
+        </input>
+
+        <input class="checkbox" id="uppercaseCharacter" type="checkbox" name="uppercaseCharacter" value="">
+          Uppercase Characters
+        </input>
+      </div>
+
       <textarea
         readonly
         placeholder="Random Password"

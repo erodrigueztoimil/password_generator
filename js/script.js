@@ -12,14 +12,41 @@ We can choose between lenght, and character type. Using those criteria, we need 
 
 // password container
 var passwordContainer = document.getElementById('password');
+var password = '';
 
-// generates a unique password
-function generatePassword() {
-  var values = ['newpassword2000', 'newpassword2024', 'newpassword6756'];
-  var index = Math.floor(Math.random()*values.length);
-  var password = values[index];
+// user input values
+var length = document.getElementById('passwordLength');
+var special = document.getElementById('specialCharacter').checked;
+var numbers = document.getElementById('numericCharacter').checked;
+var lower = document.getElementById('lowercaseCharacter').checked;
+var upper = document.getElementById('uppercaseCharacter').checked;
 
-  passwordContainer.value = password;
+// generates password handler
+function generatePassword(special, numbers, lower, upper) {
+  var userInput = document.getElementsByClassName('checkbox');
+  var isChecked;
+
+  // password values set
+  var specialSet = '!@#$%^&*().;:?';
+  var numbersSet = '0123456789';
+  var uppercaseSet = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+  var lowercaseSet = uppercaseSet.toLowerCase();
+
+  for (var i = 0; i < userInput.length; i++) {
+    if (userInput[i].checked) {
+      isChecked = true;
+    }
+  }
+
+  if (isChecked) {
+    password = 'password';
+    
+    passwordContainer.value = password;
+  }
+
+  else {
+    showAlert('Please choose at least one option.');
+  }
 }
 
 
