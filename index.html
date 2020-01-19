@@ -9,18 +9,16 @@
     <title>Password Generator</title>
   </head>
   <body>
-    <div class="alertContainer hide">
+    <div id="messageContainer" class="hide">
       <h1 id="message"></h1>
-      <button id="close" onclick="closeAlert()">
-        Close
-      </button>
+      <button id="closeBttn">Close</button>
     </div>
 
     <div class="container">
       <h1>Password Generator</h1>
       <div class="options">
         <label>Password Length 8-128</label>
-        <input id="passwordLength" type="number" name="passwordLength" value="8">
+        <input id="passwordLength" type="number" name="passwordLength" min="8" max="128" value="8">
 
         <input class="checkbox" id="specialCharacter" type="checkbox" name="specialCharacter" value="">
           Special Characters
@@ -45,11 +43,11 @@
         id="password"
       ></textarea>
 
-      <button id="generate" onclick="generatePassword()">
+      <button id="generateBttn">
         Generate Password
       </button>
 
-      <button id="copy" onclick="copyPassword()">
+      <button id="copyBttn">
         Copy to Clipboard
       </button>
     </div>

@@ -9,83 +9,186 @@ We can choose between lenght, and character type. Using those criteria, we need 
 
 */
 
-
-// password container
 var passwordContainer = document.getElementById('password');
-var password = '';
 
-// user input values
-var length = document.getElementById('passwordLength');
-var special = document.getElementById('specialCharacter').checked;
-var numbers = document.getElementById('numericCharacter').checked;
-var lower = document.getElementById('lowercaseCharacter').checked;
-var upper = document.getElementById('uppercaseCharacter').checked;
+// user input
+var lengthInput = document.getElementById('passwordLength');
+var special = document.getElementById('specialCharacter');
+var numbers = document.getElementById('numericCharacter');
+var lower = document.getElementById('lowercaseCharacter');
+var upper = document.getElementById('uppercaseCharacter');
 
-// generates password handler
-function generatePassword(special, numbers, lower, upper) {
-  var userInput = document.getElementsByClassName('checkbox');
-  var isChecked;
+// characters sets
+var specialSet = '!@#$%^&*().;:?';
+var numbersSet = '0123456789';
+var uppercaseSet = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+var lowercaseSet = uppercaseSet.toLowerCase();
 
-  // password values set
-  var specialSet = '!@#$%^&*().;:?';
-  var numbersSet = '0123456789';
-  var uppercaseSet = 'QWERTYUIOPASDFGHJKLZXCVBNM';
-  var lowercaseSet = uppercaseSet.toLowerCase();
+// when generate button is clicked
+var generateBttn = document.getElementById('generateBttn');
+generateBttn.addEventListener('click', inputHandler);
 
-  for (var i = 0; i < userInput.length; i++) {
-    if (userInput[i].checked) {
-      isChecked = true;
+
+// user input handler
+function inputHandler() {
+  var checkbox = document.getElementsByClassName('checkbox');
+  var checked = false;
+
+  var characters = '';
+
+  // check if the user clicked at least one option
+  for (var i = 0; i < checkbox.length; i++) {
+    if (checkbox[i].checked) {
+      checked = true;
     }
   }
 
-  if (isChecked) {
-    password = 'password';
-    
-    passwordContainer.value = password;
+  // if any option is selected
+  if (checked) {
+    // manage user input
+    (special.checked) ? characters += specialSet : '';
+    (numbers.checked) ? characters += numbersSet : '';
+    (lower.checked) ? characters += lowercaseSet : '';
+    (upper.checked) ? characters += uppercaseSet : '';
+
+    //pass the password to the textarea
+    passwordContainer.value = passwordHandler(characters);
   }
 
   else {
-    showAlert('Please choose at least one option.');
+    handleMessage('Please check at least one option.');
   }
 }
 
 
-// copy password handler
+// password handler
+function passwordHandler(characters) {
+  var password = '';
+  // default password length is 8 characters
+  var passwordLength = parseInt(lengthInput.value);
+
+  // get a unique value as many times as the length set by user
+  for (var i = 0; i < passwordLength; i++) {
+    var randomIndex = Math.floor(Math.random()*characters.length);
+    password += characters.charAt(randomIndex);
+  }
+
+  return password;
+}
+
+
+// when copy button is clicked
+var copyBttn = document.getElementById('copyBttn');
+copyBttn.addEventListener('click', copyPassword);
+
+// copy handler
 function copyPassword() {
   if (passwordContainer.value) {
-    // copy to clipboard
     passwordContainer.select();
     document.execCommand('copy');
 
-    // sets message
-    showAlert('Password copied.');
+    handleMessage('Password copied.');
   }
 
   else {
-    // sets message
-    showAlert('No password generated.');
+    handleMessage('No password to copy.');
   }
 }
 
 
-// alert handler
-var alertContainer = document.querySelector('.alertContainer');
+// message handler
+var messageContainer = document.getElementById('messageContainer');
+var message = document.getElementById('message');
+var closeBttn = document.getElementById('closeBttn');
 
-// handle when to show the alert
-function showAlert(text) {
-  alertContainer.classList.remove("hide");
-
-  handleMessage(text);
-}
-
-// handle the alert message
 function handleMessage(text) {
-  var messageElement = document.getElementById('message');
+  messageContainer.classList.remove('hide');
+  // when close button is clicked, close the alert
+  closeBttn.addEventListener('click', function() {
+    messageContainer.classList.add('hide');
+  })
 
-  messageElement.innerText = text;
+  message.innerText = text;
 }
 
-// when close button is clicked close the alert
-function closeAlert() {
-  alertContainer.classList.add("hide");
-}
+
+
+// // password container
+// var passwordContainer = document.getElementById('password');
+// var password = '';
+//
+// // user input values
+// var length = document.getElementById('passwordLength');
+// var special = document.getElementById('specialCharacter').checked;
+// var numbers = document.getElementById('numericCharacter').checked;
+// var lower = document.getElementById('lowercaseCharacter').checked;
+// var upper = document.getElementById('uppercaseCharacter').checked;
+//
+//
+//
+// // generates password handler
+// function generatePassword() {
+//   var userInput = document.getElementsByClassName('checkbox');
+//   var isChecked;
+//
+//   // password values set
+//   var specialSet = '!@#$%^&*().;:?';
+//   var numbersSet = '0123456789';
+//   var uppercaseSet = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+//   var lowercaseSet = uppercaseSet.toLowerCase();
+//
+//   for (var i = 0; i < userInput.length; i++) {
+//     if (userInput[i].checked) {
+//       isChecked = true;
+//     }
+//   }
+//
+//   if (isChecked) {
+//     handlePassword();
+//   }
+//
+//   else {
+//     showAlert('Please choose at least one option.');
+//   }
+// }
+//
+//
+// // copy password handler
+// function copyPassword() {
+//   if (passwordContainer.value) {
+//     // copy to clipboard
+//     passwordContainer.select();
+//     document.execCommand('copy');
+//
+//     // sets message
+//     showAlert('Password copied.');
+//   }
+//
+//   else {
+//     // sets message
+//     showAlert('No password generated.');
+//   }
+// }
+//
+//
+// // alert handler
+// var alertContainer = document.querySelector('.alertContainer');
+//
+// // handle when to show the alert
+// function showAlert(text) {
+//   alertContainer.classList.remove("hide");
+//
+//   handleMessage(text);
+// }
+//
+// // handle the alert message
+// function handleMessage(text) {
+//   var messageElement = document.getElementById('message');
+//
+//   messageElement.innerText = text;
+// }
+//
+// // when close button is clicked close the alert
+// function closeAlert() {
+//   alertContainer.classList.add("hide");
+// }
